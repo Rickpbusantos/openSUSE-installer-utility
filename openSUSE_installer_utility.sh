@@ -10,7 +10,7 @@ cat saida.txt | (sed -e 's/|/ /g;s/:/_/g' )  > pacotes.txt
 instalar=`cat pacotes.txt` 
 
 
-(zenity --title="Atenção" --question --text="Você deseja prosseguir com a instalação dos pacotes $ler?") &&
+(zenity --title="Atenção" --question --text="Você deseja prosseguir com a instalação dos pacotes $instalar?") &&
  
 (zypper --no-gpg-checks  ar http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_13.1/ "Packman" | zenity --title="Adicionado repositórios" --width="500" --height="200" --text="Adicionado repositório Principal" --progress --pulsate
 zypper --no-gpg-checks  ar http://download.opensuse.org/repositories/server:/database/openSUSE_13.1/ "Jogos" | zenity --title="Adicionado repositórios" --width="500" --height="200" --text="Adicionado repositório Jogos" --progress --pulsate 
