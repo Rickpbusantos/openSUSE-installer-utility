@@ -7,7 +7,7 @@ zenity --title="Seleção de pacotes" --width="500" --height="500" --text="Marqu
 
 cat saida.txt | (sed -e 's/|/ /g;s/:/_/g' )  > pacotes.txt
 
-ler=`cat pacotes.txt` 
+instalar=`cat pacotes.txt` 
 
 
 (zenity --title="Atenção" --question --text="Você deseja prosseguir com a instalação dos pacotes $ler?") &&
