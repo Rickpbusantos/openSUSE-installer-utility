@@ -5,18 +5,21 @@
 # Versão 1.3 beta 
 usrcheck=`whoami`
 case $usrcheck in
-root) 
+root)
+selecao () {
 (zenity --title="Seleção de pacotes" --width="500" --height="500" --text="Marque os pacotes que deverão ser instalados" --list --checklist --column "A Instalar" --column "Pacotes" TRUE dvdrip TRUE k3b TRUE filezilla TRUE opera TRUE free-ttf-fonts TRUE fetchmsttfonts TRUE gstreamer-0_10 TRUE libdvdcss2 TRUE lame TRUE w32codec-all TRUE libdvdplay0 TRUE libavdevice52 TRUE gstreamer-0_10-plugins-bad TRUE gstreamer-0_10-plugins-ugly TRUE inkscape TRUE blender TRUE scribus TRUE fontmatrix TRUE calligra-krita TRUE clementine TRUE smplayer TRUE vlc TRUE xbmc TRUE pidgin TRUE kdenlive TRUE geany TRUE chromium TRUE audacious TRUE audacity TRUE  bleachbit > saida.txt)
 
 cat saida.txt | (sed -e 's/|/ /g;s/:/_/g' )  > pacotes.txt
 
 instalar=`cat pacotes.txt`
+}
+selecao
+while [ $instalar -s ]; do
 
-if [ "$instalar" = "" ]
-then
-zenity --title="Atenção" --warning --text="Você precisa selecionar alguns pacotes"
+zenity --title="Atenção" --warning --text="Você precisa selecionar algum pacote"
+selecao
+done
 
-else
 (zenity --title="Atenção" --question --text="Você tem certeza que deseja prosseguir?") &&
  
 (zypper --no-gpg-checks ar http://ftp.gwdg.de/pub/linux/packman/suse/openSUSE_13.1/ "Packman" | zenity --title="Adicionado repositórios" --width="500" --height="100" --text="Adicionando repositorio Packman" --progress --pulsate --auto-close
@@ -51,11 +54,11 @@ zypper --gpg-auto-import-keys refresh | zenity --title="Atualizando repositório
 
 (zypper rr Packman Jogos Multimedialibs Graphics MultimediaApps Network Standard NonFree Fontes Simmphonie GnomeExtras KdeExtras Chromium RedDwarf Utilidades | zenity --title="Removendo repositórios" --width="500" --height="300" --text="Removendo repositórios aguarde..." --progress --pulsate) && 
 
- zenity --title="Sucesso" --width="300" --height="100" --info --text="Pacotes instalados com sucesso"
-fi;;
+ zenity --title="Sucesso" --width="300" --height="100" --info --text="Pacotes instalados com sucesso";;
 *)
 zenity --title="Erro" --error --text="Você precisa estar como root para prosseguir" --width="400" --height="80";;
 esac
+
 
 
 
