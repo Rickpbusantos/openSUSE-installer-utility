@@ -19,7 +19,7 @@ instalar=`cat .pacotes.txt`
 selecao
 while [ $instalar -s ]; do
 
-zenity --title="Atenção" --warning --text="nem um pacote selecionado"
+zenity --title="Atenção" --warning --text="Pacotes não foram selecionados"
 selecao 
 done
 
